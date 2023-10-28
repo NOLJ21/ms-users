@@ -1,9 +1,6 @@
 package com.parqueo.usuarios.service;
 
-import com.parqueo.usuarios.dto.CustomerDto;
 import com.parqueo.usuarios.dto.CustomerDtoSpecial;
-import com.parqueo.usuarios.dto.PersonDto;
-import com.parqueo.usuarios.dto.UserDto;
 import com.parqueo.usuarios.entity.Customer;
 import com.parqueo.usuarios.entity.Person;
 import com.parqueo.usuarios.entity.User;
@@ -11,11 +8,11 @@ import com.parqueo.usuarios.repository.CustumerRepository;
 import com.parqueo.usuarios.repository.PersonRepository;
 import com.parqueo.usuarios.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -33,11 +30,27 @@ public class CustomerService {
     public Customer save(CustomerDtoSpecial customerDto) {
         Customer customer = new Customer();
         Person person = new Person();
-        log.info("customerDto: {}", customerDto);
+        User user = new User();
+        Optional<User> userOptional = userRepository.findByUsernameAndPasswordOptional
+                (customerDto.getPerson().getUser().getUsername(), customerDto.getPerson().getUser().getPassword());
 
-        User user = userRepository.findById(customerDto.getPerson().getUser()).get();
 
-
+        // verificar si existe el usuario
+        if(!userOptional.isPresent()) {
+            log.info("No existe el usuario, se creará uno nuevo");
+            log.info("Usuario: {}", customerDto.getPerson().getUser().getUsername());
+            log.info("Contraseña: {}", customerDto.getPerson().getUser().getPassword());
+            user.setUsername(customerDto.getPerson().getUser().getUsername());
+            user.setPassword(customerDto.getPerson().getUser().getPassword());
+            user.setDeleted(false);
+            userRepository.save(user);
+            userOptional = userRepository.findByUsernameAndPasswordOptional
+                    (customerDto.getPerson().getUser().getUsername(), customerDto.getPerson().getUser().getPassword());
+            user = userOptional.get();
+        }
+        else{
+            user = userOptional.get();
+        }
         // con getter y setters, primero person
         person.setName(customerDto.getPerson().getName());
         person.setSurname(customerDto.getPerson().getSurname());

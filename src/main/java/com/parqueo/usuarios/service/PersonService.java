@@ -22,7 +22,7 @@ public class PersonService {
     public void save(PersonDto personDto) {
         Person person = new Person();
         BeanUtils.copyProperties(personDto, person);
-        person.setUser(userService.findById(personDto.getUser()));
+        person.setUser(userService.findById(personDto.getUser().getId()));
         personRepository.save(person);
     }
 
