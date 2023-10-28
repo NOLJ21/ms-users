@@ -1,17 +1,17 @@
-#server:
-#  port: 6007
-#
-#spring:
-#  application:
-#    name: users
-#
-#  datasource:
-#    url: jdbc:postgresql://localhost:5432/parqueo
-#    username: usertest
-#    password: 123456
-#
-#eureka:
-#  client:
-#    service-url:
-#      defaultZone: http://localhost:8714/eureka/
+server:
+  port: 6010
+
+spring:
+  application:
+    name: users
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/parqueo
+    username: usertest
+    password: 123456
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8714/eureka/
 
