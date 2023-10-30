@@ -5,6 +5,14 @@ spring:
   application:
     name: users
 
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8080/realms/parking/protocol/openid-connect/certs
+          issuer-uri: http://localhost:8080/realms/parking
+
+
   datasource:
     url: jdbc:postgresql://localhost:5432/parqueo
     username: usertest
@@ -14,4 +22,7 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8714/eureka/
+token:
+  principal-attribute: preferred_username
+  resource-id: parking-backend
 
