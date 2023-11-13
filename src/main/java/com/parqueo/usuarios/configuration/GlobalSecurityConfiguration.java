@@ -46,6 +46,16 @@ public class GlobalSecurityConfiguration
                     .requestMatchers("/api/v1/customer/login").hasRole("USER")
                     .requestMatchers("/api/v1/customer/save").hasRole("ADMIN")
                     .requestMatchers("/api/v1/customer/delete/{id}").hasRole("ADMIN")
+                    .requestMatchers("/api/v1/admin/all").hasRole("ADMIN")
+                    .requestMatchers("/api/v1/admin/{id}").hasRole("ADMIN")
+                    .requestMatchers("/api/v1/admin/login").hasRole("USER")
+                    .requestMatchers("/api/v1/admin/save").hasRole("ADMIN")
+                    .requestMatchers("/api/v1/admin/delete/{id}").hasRole("ADMIN")
+                    .requestMatchers("/api/v1/employee/all").hasRole("ADMIN")
+                    .requestMatchers("/api/v1/employee/{id}").hasRole("ADMIN")
+                    .requestMatchers("/api/v1/employee/login").hasRole("USER")
+                    .requestMatchers("/api/v1/employee/save").hasRole("ADMIN")
+                    .requestMatchers("/api/v1/employee/delete/{id}").hasRole("ADMIN")
                     .anyRequest().authenticated();
         });
         http.oauth2ResourceServer( (oauth2) -> {

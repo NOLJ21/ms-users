@@ -47,8 +47,7 @@ public class CustomerService {
             userOptional = userRepository.findByUsernameAndPasswordOptional
                     (customerDto.getPerson().getUser().getUsername(), customerDto.getPerson().getUser().getPassword());
             user = userOptional.get();
-        }
-        else{
+        } else{
             user = userOptional.get();
         }
         // con getter y setters, primero person
