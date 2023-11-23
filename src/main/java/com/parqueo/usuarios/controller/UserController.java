@@ -1,5 +1,6 @@
 package com.parqueo.usuarios.controller;
 
+import com.parqueo.usuarios.dto.SesionDto;
 import com.parqueo.usuarios.dto.UserDto;
 import com.parqueo.usuarios.entity.User;
 import com.parqueo.usuarios.service.UserService;
@@ -40,7 +41,7 @@ public class UserController {
 
     // obtener mediante password y usuario
     @GetMapping("/login")
-    public ResponseEntity<User> getUserByUsernameAndPassword(@RequestBody UserDto userDto) {
+    public ResponseEntity<SesionDto> getUserByUsernameAndPassword(@RequestBody UserDto userDto) {
         try {
             return ResponseEntity.ok(userService.findByUsernameAndPassword(userDto.getUsername(), userDto.getPassword()));
         } catch (Exception e) {
