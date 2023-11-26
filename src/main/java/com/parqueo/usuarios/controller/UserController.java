@@ -40,7 +40,7 @@ public class UserController {
     }
 
     // obtener mediante password y usuario
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity<SesionDto> getUserByUsernameAndPassword(@RequestBody UserDto userDto) {
         try {
             return ResponseEntity.ok(userService.findByUsernameAndPassword(userDto.getUsername(), userDto.getPassword()));
